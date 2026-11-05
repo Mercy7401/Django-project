@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f7f4">
+    <title>{% block title %}FORM & FIELD — Thoughtful things for everyday living{% endblock %}</title>
+    <meta name="description" content="Thoughtfully chosen homewares for everyday living. Discover furniture, lighting and objects made to last.">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="announcement">A little more joy, delivered. Complimentary shipping on orders over $100.</div>
+    <header class="site-header">
+        <a class="wordmark" href="{% url 'home' %}" aria-label="Form and Field home">FORM <span>&</span> FIELD<span class="wordmark-period">.</span></a>
+        <nav class="main-nav" aria-label="Main navigation">
+            <a href="{% url 'home' %}#shop">Shop all</a>
+            <a href="{% url 'about' %}">Our story</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </nav>
+        <div class="header-actions">
+            <form class="header-search" action="{% url 'home' %}" method="get" role="search">
+                <label class="sr-only" for="site-search">Search products</label>
+                <input id="site-search" type="search" name="q" placeholder="Find something..." value="{{ query|default:'' }}">
+                <button aria-label="Search" type="submit"><span aria-hidden="true">⌕</span></button>
+            </form>
+            <a class="bag-link" href="{% url 'cart' %}" aria-label="Shopping bag, {{ cart_count }} item{{ cart_count|pluralize }}">
+                Bag <span class="bag-count">{{ cart_count }}</span>
+            </a>
+        </div>
+    </header>
+    {% if messages %}
+    <div class="messages" role="status" aria-live="polite">
+        {% for message in messages %}
+            <p class="message message-{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div>
+                <a class="wordmark footer-wordmark" href="{% url 'home' %}">FORM <span>&</span> FIELD<span class="wordmark-period">.</span></a>
+                <p>Thoughtful design. Everyday delight.</p>
+            </div>
+            <div class="footer-links">
+                <a href="{% url 'home' %}#shop">Shop</a>
+                <a href="{% url 'about' %}">Our story</a>
+                <a href="{% url 'contact' %}">Get in touch</a>
+            </div>
+            <p class="footer-note">Made for the moments that make a home.</p>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Form & Field</span>
+            <span>Good things, chosen with care.</span>
+        </div>
+    </footer>
+</body>
+</html>

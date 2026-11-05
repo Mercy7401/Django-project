@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Your bag — FORM & FIELD{% endblock %}
+{% block content %}
+<section class="page-shell bag-page">
+    <div class="page-heading">
+        <p class="eyebrow">Saved for you</p>
+        <h1>Your <em>bag</em><span class="heading-count">({{ cart_count }})</span></h1>
+    </div>
+    {% if items %}
+    <div class="bag-layout">
+        <div class="bag-items">
+            {% for item in items %}
+            <article class="bag-item">
+                <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" loading="lazy">
+                <div class="bag-item-info">
+                    <p class="product-category">{{ item.product.category }}</p>
+                    <h2>{{ item.product.name }}</h2>
+                    <p class="bag-unit-price">${{ item.product.price|floatformat:2 }} each</p>
+                    <div class="bag-item-controls">
+                        <form class="quantity-form" action="{% url 'update_cart' item.product.id %}" method="post">
+                            {% csrf_token %}
+                            <label for="quantity-{{ item.product.id }}">Qty</label>
+                            <input id="quantity-{{ item.product.id }}" name="quantity" type="number" min="1" max="{{ item.available_quantity }}" value="{{ item.quantity }}">
+                            <button class="text-button" type="submit">Update</button>
+                        </form>
+                        <form action="{% url 'update_cart' item.product.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="quantity" value="0">
+                            <button class="text-button remove-button" type="submit">Remove</button>
+                        </form>
+                    </div>
+                </div>
+                <p class="bag-line-total">${{ item.line_total|floatformat:2 }}</p>
+            </article>
+            {% endfor %}
+            <a class="text-link continue-link" href="{% url 'home' %}#shop"><span aria-hidden="true">←</span> Keep browsing</a>
+        </div>
+        <aside class="order-summary">
+            <p class="eyebrow">The details</p>
+            <h2>Order summary</h2>
+            <div class="summary-row"><span>Subtotal</span><strong>${{ subtotal|floatformat:2 }}</strong></div>
+            <div class="summary-row"><span>Shipping</span><span class="shipping-note">Calculated at checkout</span></div>
+            <p class="summary-small">Complimentary shipping on orders over $100.</p>
+            <a class="button button-dark button-full" href="{% url 'checkout' %}">Continue to checkout <span aria-hidden="true">→</span></a>
+            <p class="secure-note"><span aria-hidden="true">♡</span> No payment is collected on this demo store.</p>
+        </aside>
+    </div>
+    {% else %}
+    <div class="empty-state bag-empty">
+        <span class="empty-mark">✳</span>
+        <h2>Your bag is taking a breather.</h2>
+        <p>Let's find something lovely to bring home.</p>
+        <a class="button button-dark" href="{% url 'home' %}#shop">Explore the collection <span aria-hidden="true">↗</span></a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,13 +1,19 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>About Us</h1>
-    <p>This is the about page.</p>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Our story — FORM & FIELD{% endblock %}
+{% block content %}
+<section class="page-shell editorial-page">
+    <p class="eyebrow">A home is never finished. That's the fun part.</p>
+    <h1>Good things,<br><em>chosen with care.</em></h1>
+    <div class="editorial-image">
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&amp;fit=crop&amp;w=1600&amp;q=85" alt="Soft, natural materials and a welcoming living room">
+    </div>
+    <div class="editorial-copy">
+        <h2>Make space for what matters.</h2>
+        <div>
+            <p>Form & Field began with a simple thought: the everyday things around us should make everyday life feel better. Not louder, not busier — just a little more considered.</p>
+            <p>We bring together useful, well-made pieces with an eye for materials, character, and the small details that make a house feel like yours. The result is a collection to live with, love, and keep around.</p>
+            <a class="text-link" href="{% url 'home' %}#shop">Find your next favorite <span aria-hidden="true">→</span></a>
+        </div>
+    </div>
+</section>
+{% endblock %}

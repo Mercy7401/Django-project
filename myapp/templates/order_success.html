@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Order received — FORM & FIELD{% endblock %}
+{% block content %}
+<section class="page-shell success-page">
+    <div class="success-card">
+        <span class="success-icon" aria-hidden="true">✓</span>
+        <p class="eyebrow">Well, this is lovely</p>
+        <h1>Order <em>received.</em></h1>
+        <p>Thanks, {{ order.customer_name }}. Your order is in our hands. This demo store doesn't collect payment, but your order has been saved for the shop team.</p>
+        <div class="reference-box"><span>Order reference</span><strong>{{ order.reference }}</strong></div>
+        <div class="success-order">
+            {% for item in order.items.all %}
+                <div class="summary-row"><span>{{ item.quantity }} × {{ item.product_name }}</span><strong>${{ item.line_total|floatformat:2 }}</strong></div>
+            {% endfor %}
+            <div class="summary-row summary-total"><span>Order total</span><strong>${{ order.total|floatformat:2 }}</strong></div>
+        </div>
+        <a class="button button-dark" href="{% url 'home' %}">Back to the good things <span aria-hidden="true">↗</span></a>
+    </div>
+</section>
+{% endblock %}

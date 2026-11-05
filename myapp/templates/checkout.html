@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Checkout — FORM & FIELD{% endblock %}
+{% block content %}
+<section class="page-shell checkout-page">
+    <div class="page-heading">
+        <p class="eyebrow">Just a few details</p>
+        <h1>Make it <em>yours.</em></h1>
+    </div>
+    <div class="checkout-layout">
+        <form class="checkout-form" method="post">
+            {% csrf_token %}
+            <h2>Delivery details</h2>
+            <p class="form-intro">Tell us where your good things should go.</p>
+            {{ form.non_field_errors }}
+            <div class="form-grid">
+                {% for field in form %}
+                <div class="form-field{% if field.errors %} has-error{% endif %}{% if field.name == 'address' %} field-wide{% endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            <button class="button button-dark button-full checkout-submit" type="submit">Place demo order <span aria-hidden="true">→</span></button>
+            <p class="secure-note checkout-disclaimer">Demo checkout only — no payment is collected.</p>
+        </form>
+        <aside class="order-summary checkout-summary">
+            <p class="eyebrow">A good choice</p>
+            <h2>Your order</h2>
+            {% for item in items %}
+            <div class="checkout-item">
+                <img src="{{ item.product.image_url }}" alt="" loading="lazy">
+                <div><h3>{{ item.product.name }}</h3><p>Qty {{ item.quantity }}</p></div>
+                <strong>${{ item.line_total|floatformat:2 }}</strong>
+            </div>
+            {% endfor %}
+            <div class="summary-row summary-total"><span>Subtotal</span><strong>${{ subtotal|floatformat:2 }}</strong></div>
+            <p class="summary-small">Shipping details will be arranged after your order is received.</p>
+        </aside>
+    </div>
+</section>
+{% endblock %}

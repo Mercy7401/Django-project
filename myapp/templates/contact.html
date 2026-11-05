@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Contact Us</h1>
-    <p>This is the contact page.</p>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Contact — FORM & FIELD{% endblock %}
+{% block content %}
+<section class="page-shell contact-page">
+    <div class="contact-intro">
+        <p class="eyebrow">Good conversations welcome</p>
+        <h1>We're all <em>ears.</em></h1>
+        <p>Questions about a piece, your order, or just want to say hello? We'd love to hear from you.</p>
+    </div>
+    <div class="contact-card">
+        <div><span class="contact-symbol" aria-hidden="true">↗</span><p class="eyebrow">Drop us a note</p><h2>For anything at all</h2><a href="mailto:hello@formandfield.example">hello@formandfield.example</a></div>
+        <div><span class="contact-symbol" aria-hidden="true">⌁</span><p class="eyebrow">We're around</p><h2>Monday–Friday</h2><p>9am–5pm, wherever home is.</p></div>
+    </div>
+    <p class="contact-footnote">We usually get back to you within one business day.</p>
+</section>
+{% endblock %}
